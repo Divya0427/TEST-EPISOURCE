@@ -1,4 +1,4 @@
-Develop
+Master branch
 # epicc-xl
 MS Excel based plugin for Epicc
 # cc_acute
