@@ -1,0 +1,36 @@
+language: node_js
+node_js:
+  - 10
+env:
+  global:
+    - RELEASE_VERSION=1.1.0.0
+    - DEFAULT_LOCALHOST=https://localhost:3000
+    - PROD_URL=https://dfslh8qg8d862.cloudfront.net/${RELEASE_VERSION}
+    - UAT_URL=https://dfslh8qg8d862.cloudfront.net/uat/${RELEASE_VERSION}
+cache:
+  directories:
+  - node_modules
+install:
+- npm install
+before_script: chmod 0777 ./node_modules/.bin/jest
+script:
+- npm run test --coverage
+- npm run build
+before_deploy:
+- rm -rf node_modules manifest.xml manifest_epi.xml
+- bash before_deploy_scripts.sh
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $S3_BUCKET_UAT
+    skip_cleanup: true
+    on:
+      branch: develop
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $S3_BUCKET_PROD
+    skip_cleanup: true
+    on:
+      branch: master
