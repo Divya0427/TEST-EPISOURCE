@@ -1,0 +1,134 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Risk Adjustment Toolkit</title>
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+    <!-- Template styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+    <!--for glyphicon  -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="ms-font-m ms-welcome ms-Fabric">
+    <img class="responsive" src="../../assets/logo.png" alt="epi" title="epiAnalyst"/>
+    <div class="container">
+        <div><br/>
+            <p class="ms-font-s"><strong>Episource’s Risk Adjustment Toolkit </strong>delivers a comprehensive set of tools for analyzing Medicare Advantage risk adjustment data. Powered by Risk Adjustment Toolkit, the industry’s leading Risk Adjustment Analytics engine, the Excel add-in empowers health plans and provider groups to better understand their members’ risk scores, identify Dx/HCC gaps, and track risk program ROI.</p>
+            <p class="ms-font-s">&nbsp;<strong>Features:</strong></p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Calculate member risk scores and forecast premiums based on demographic and diagnosis information</p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Perform analysis on Dx codes and/or HCCs</p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Get descriptions and reference details about Dx codes or HCCs without leaving Excel</p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Identify Year-over-Year HCC gaps and calculate their financial impacts</p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Calculate impact and ROI of incremental codes identified in risk adjustment programs</p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Full implementation of the CMS HCC Models from v22 to v24, including hierarchies, age/sex edits, and interaction codes</p>
+            <p class="ms-font-s">&nbsp; <strong>- </strong>Coverage of all risk factor types (Community, Duals/Disableds, Institutional,Newly Enrolled, etc.)</p>
+            <p class="ms-font-s"><strong><a href="https://hccreference.com/" target="_blank">DX/HCC Reference Tools <span class="glyphicon glyphicon-new-window"></span></a></strong></p>
+            <p class="ms-font-s"><strong>Getting Started: Basic Analysis </strong></p>
+            <p class="ms-font-s">Analytics functions are callable from cells as Excel functions</p>
+            <p class="ms-font-s">&nbsp; =epi.dx_desc("e119")</p>
+            <p class="ms-font-s">&nbsp; =epi.dx2cc("E119, i420")</p>
+            <p class="ms-font-s">&nbsp; =epi.dx_raf("E1100", "v24")</p>
+            <p class="ms-font-s">&nbsp; =epi.dx_increment("N18.3", "N18.4")</p>
+            <p class="ms-font-s">&nbsp; =epi.dx_gaps("e1100", "e119")</p>
+            <p class="ms-font-s">&nbsp; =epi.cc_raf("HCC58")</p>
+            <p class="ms-font-s">&nbsp; =epi.cc_increment("19", "18")</p>
+            <p class="ms-font-s"><strong><a href="https://hccexplorer.com/support" target="_blank">Full list of functions and more examples <span class="glyphicon glyphicon-new-window"></span></a></strong></p>
+        </div>
+     
+        <div>
+                    <div class="ms-font-s">
+                        <label class="font-weight-bold" for="default-values-section">Please set Default Values below:</label>
+                    </div>
+                    <div class="alert alert-success set-default-success-alert ms-small-font p-2" style="display: none;" role="alert">
+                        Default values are set successfully!
+                      </div>
+                    <div id="default-values-section" class="container ms-small-font">
+                        <div class="default-version-container row">
+                            <label for="default-version" class="ms-font-s col-sm-5 col-5">Version:</label>
+                            <select id="default-version-dropdown"  name="default-version" class="default-values-dropdown col-sm-4 col-4">
+                                <option value="v23">v23</option>
+                                <option value="v22">v22</option>                                
+                                <option value="v24">v24</option>
+                            </select>
+                        </div>
+                        <div class="default-disable-container row">
+                            <label for="default-disable" class="ms-font-s col-sm-5 col-5">Disable:</label>
+                            <select id="default-disable-dropdown"  name="default-disable" class="default-values-dropdown col-sm-4 col-4">
+                                <option value="false">False</option>
+                                <option value="true">True</option>
+                                </select>
+                        </div>
+                        <div class="default-verbose-container row">
+                            <label for="default-verbose" class="ms-font-s col-sm-5 col-5">Verbose:</label>
+                            <select id="default-verbose-dropdown"  name="default-verbose" class="default-values-dropdown col-sm-4 col-4">
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                        <div class="default-never-trump-container row">
+                            <label for="default-never-trump" class="ms-font-s col-sm-5 col-5" >Never-Trump:</label>
+                            <select id="default-never-trump-dropdown"  name="default-never-trump" class="default-values-dropdown col-sm-4 col-4">
+                                <option value="0">False</option>
+                                <option value="1">True</option>
+                            </select>
+                        </div>
+                        <div class="default-model-container row">
+                            <label for="default-model" class="ms-font-s col-sm-5 col-5">Model:</label>
+                            <select id="default-model-dropdown" name="default-model"  class="default-values-dropdown col-sm-4 col-4">
+                                <option value="CNA">CNA</option>
+                                <option value="CND">CND</option>
+                                <option value="CFA">CFA</option>
+                                <option value="CFD">CFD</option>
+                                <option value="CPA">CPA</option>
+                                <option value="CPD">CPD</option>
+                                <option value="INS">INS</option>
+                                <option value="NE">NE</option>
+                                <option value="SNPNE">SNPNE</option>
+                            </select>
+                        </div>                       
+                        <div class="default-age-container row">
+                            <label for="default-age" class="ms-font-s col-sm-5 col-5">Age:</label>
+                            <input type="text" id="default-age-dropdown" name="default-age"  class="default-values-dropdown col-sm-4 col-4" value="65"></input>
+                   
+                        </div> 
+                        <div class="default-sex-container row">
+                            <label for="default-sex" class="ms-font-s col-sm-5 col-5">Sex:</label>
+                            <select id="default-sex-dropdown" name="default-sex"  class="default-values-dropdown col-sm-4 col-4">
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                                
+                            </select>
+                        </div>
+                        <div class="default-baserate-container row">
+                            <label for="default-baserate" class="ms-font-s col-sm-5 col-5">Baserate:</label>
+                            <input type="text" id="default-baserate-dropdown" name="default-baserate"  class="default-values-dropdown col-sm-4 col-4" value="868.0">
+                        </input>
+                         </div>
+                        <div class="default-orec-container row">
+                            <label for="default-orec" class="ms-font-s col-sm-5 col-5">Orec:</label>
+                            <select id="default-orec-dropdown" name="default-sex"  class="default-values-dropdown col-sm-4 col-4">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div id="tokenSendStatus"></div>
+                        <div class="row p-2 pt-4 pb-4">
+                            <button class="btn btn-primary btn-sm ml-2 p-1" id="set-default-button" >Set Default</button>
+                            <button class="btn btn-primary btn-sm ml-3 p-1"  id="reset-default-button">Reset Default</button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</body>
+</html>
