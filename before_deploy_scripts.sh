@@ -15,8 +15,9 @@ fi
     # replacing the default localhost URLs with the Prod URL in the manifest file.
     # After that, folder /<version> would be created. Moving the entire files and folders from epicc-xl to this path epicc-xl/<version>/
 if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
-    sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" manifest.xml
-    sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" manifest.xml
+    sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" ./uat/$RELEASE_VERSION/manifest.xml
+    sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" ./uat/$RELEASE_VERSION/manifest.xml
+    sed -i.bak "s|$UAT_URL|$PROD_URL|g" ./uat/$RELEASE_VERSION/manifest.xml
     mkdir $RELEASE_VERSION
     mv * .* ./$RELEASE_VERSION
 fi
