@@ -1,5 +1,5 @@
 # This script would be executed before deploy to S3
-# If the travis merge branch is develop, then
+# If the travis merge branch is develop, then(bucket: epitests3)
     # updating the <Version> tag's value with the variable $RELEASE_VERSION and
     # replacing the default localhost URLs with the UAT URL in the manifest file.
     # After that, folders UAT/<version> would be created. Moving the entire files and folders from epicc-xl to this path epicc-xl/UAT/<version>/
@@ -10,7 +10,7 @@ if [[ ${TRAVIS_BRANCH} == "develop" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     cd ..
     mv * .* ./uat/$RELEASE_VERSION
 fi
-# If the travis merge branch is master, then
+# If the travis merge branch is master, then(bucket: epitest3)
     # updating the <Version> tag's value with the variable $RELEASE_VERSION and
     # replacing the default localhost URLs with the Prod URL in the manifest file.
     # After that, folder /<version> would be created. Moving the entire files and folders from epicc-xl to this path epicc-xl/<version>/
