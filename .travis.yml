@@ -18,20 +18,34 @@ script:
 - npm run build
 before_deploy:
 - rm -rf node_modules
-deploy:
-  - provider: script
-    script: bash uat_scripts.sh
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: $UAT_S3
-    skip_cleanup: true
-    on:
-      branch: develop
-  - provider: script
-    script: bash prod_scripts.sh
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: $PROD_S3
-    skip_cleanup: true
-    on:
-      branch: master      
+jobs:
+  include:    
+    - stage: deploy-develop
+      if: branch = develop
+      name: "Deploy to develop S3"
+      script: skip
+      deploy:
+        provider: script
+        script: bash uat_scripts.sh develop
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: $PROD_S3
+        skip_cleanup: true
+        on:
+          branch: develop
+          condition: $TRAVIS_BRANCH = develop
+
+    - stage: deploy-prod
+      if: branch = master
+      name: "Deploy to production S3"
+      script: skip
+      deploy:
+        provider: script
+        script: bash prod_scripts.sh master
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: $PROD_S3
+        skip_cleanup: true
+        on:
+          branch: master
+          condition: $TRAVIS_BRANCH = master
