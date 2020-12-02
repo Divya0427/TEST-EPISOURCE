@@ -20,7 +20,7 @@ fi
     # After that, folder /<version> would be created. Moving the entire files and folders from epicc-xl to this path epicc-xl/<version>/
     # find . -maxdepth 1 | grep -v 1.1.0.0| xargs -i mv {} ./1.1.0.0
     # find * .* -maxdepth 1 | grep -v 1.1.0.0| xargs -i mv {} ./1.1.0.0
-if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
+if [[ ${TRAVIS_BRANCH} == "new-master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
     sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" manifest.xml
     sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" manifest.xml
