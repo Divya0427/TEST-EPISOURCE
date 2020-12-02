@@ -33,8 +33,10 @@ jobs:
      - STAGE=develop
     deploy:
       provider: script
-      script:
-        bash uat_scripts.sh $STAGE
+      script: bash uat_scripts.sh $STAGE
+      access_key_id: $AWS_ACCESS_KEY_ID
+      secret_access_key: $AWS_SECRET_ACCESS_KEY
+      bucket: $PROD_S3
       on:
        branch: develop
 
@@ -44,7 +46,9 @@ jobs:
      - STAGE=production
     deploy: 
       provider: script
-      script:
-        bash prod_scripts.sh $STAGE;
+      script: bash prod_scripts.sh $STAGE;
+      access_key_id: $AWS_ACCESS_KEY_ID
+      secret_access_key: $AWS_SECRET_ACCESS_KEY
+      bucket: $PROD_S3
       on:
        branch: master
