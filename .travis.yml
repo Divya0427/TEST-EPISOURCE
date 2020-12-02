@@ -21,7 +21,7 @@ before_deploy:
 - bash before_deploy_scripts.sh
 deploy:
   - provider: script
-    script: uat_scripts.sh
+    script: ./uat_scripts.sh
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $UAT_S3
@@ -29,7 +29,7 @@ deploy:
     on:
       branch: develop
   - provider: script
-    script: prod_scripts.sh
+    script: ./prod_scripts.sh
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $PROD_S3
