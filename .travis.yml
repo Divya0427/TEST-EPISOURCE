@@ -20,18 +20,19 @@ before_deploy:
 - rm -rf node_modules
 - bash before_deploy_scripts.sh
 deploy:
-  - provider: s3
+  - provider: script
+    script: uat_scripts.sh
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $UAT_S3
     skip_cleanup: true
     on:
       branch: develop
-  - provider: s3
+  - provider: script
+    script: prod_scripts.sh
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $PROD_S3
     skip_cleanup: true
     on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^master\/.*$
+      branch: master      
