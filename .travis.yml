@@ -32,3 +32,6 @@ deploy:
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $PROD_S3
     skip_cleanup: true
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^master\/.*$
