@@ -21,6 +21,7 @@ fi
     # find * .* -maxdepth 1 | grep -v 1.1.0.0| xargs -i mv {} ./1.1.0.0
     # mkdir $RELEASE_VERSION
     # mv * .* ./$RELEASE_VERSION
+    # condition: $TRAVIS_BRANCH =~ ^(master)$
 
 if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     echo ${TRAVIS_BRANCH}
