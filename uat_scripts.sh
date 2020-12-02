@@ -5,7 +5,5 @@ echo "PRINTING MANIFEST AT DEVELOP"
 cat manifest.xml
 mkdir uat && cd uat && mkdir $RELEASE_VERSION
 cd ..
-cp -r `ls -A | grep -v "$RELEASE_VERSION"` $RELEASE_VERSION
-shopt -s extglob
-rm -rf !($RELEASE_VERSION)
-rm -rf .*
+cp -r `ls -A | grep -v "$RELEASE_VERSION"` ./uat/$RELEASE_VERSION
+
