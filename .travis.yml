@@ -33,4 +33,4 @@ deploy:
     bucket: $PROD_S3
     skip_cleanup: true
     on:
-      all_branches: true
+      branch: master
