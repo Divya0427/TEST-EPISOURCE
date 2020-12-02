@@ -4,6 +4,7 @@
     # replacing the default localhost URLs with the UAT URL in the manifest file.
     # After that, folders UAT/<version> would be created. Moving the entire files and folders from epicc-xl to this path epicc-xl/UAT/<version>/
 if [[ ${TRAVIS_BRANCH} == "develop" && $TRAVIS_PULL_REQUEST != 1 ]]; then
+    echo "============PRINTING MANIFEST AT DEVELOP"
     find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
     sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" manifest.xml
     sed -i.bak "s|$DEFAULT_LOCALHOST|$UAT_URL|g" manifest.xml
