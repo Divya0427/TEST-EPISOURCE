@@ -1,0 +1,67 @@
+# Trial 1
+jobs:
+  include:    
+    - stage: deploy-develop
+      if: branch = develop
+      name: "Deploy to develop S3"
+      script: skip
+      deploy:
+        provider: script
+        script: bash uat_scripts.sh develop
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: $UAT_S3
+        skip_cleanup: true
+        on:
+          branch: develop
+          condition: $TRAVIS_BRANCH = develop
+
+    - stage: deploy-prod
+      if: branch = master
+      name: "Deploy to production S3"
+      script: skip
+      deploy:
+        provider: script
+        script: bash prod_scripts.sh master
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: $PROD_S3
+        skip_cleanup: true
+        on:
+          branch: master
+          condition: $TRAVIS_BRANCH = master
+# Trial 2
+cp -rv `ls -A | grep -vE "dirToExclude|targetDir"` targetDir
+cp -rv `ls -A | grep -vE "1.1.0.0|1.1.0.0"` 1.1.0.0
+$ cp -r `ls -A | grep -v "dir2"` /home/sk/backup/
+$ cp -r `ls -A | grep -v "{$RELEASE_VERSION}"` $RELEASE_VERSION
+$ cp -r `ls -A | grep -v "1.1.0.0"` 1.1.0.0
+rm -r !(1.1.0.0)
+rm -v !("1.1.0.0")
+
+mv * .* ./uat/$RELEASE_VERSION
+
+cp -r `ls -A | grep -v "1.1.0.0"` 1.1.0.0
+shopt -s extglob
+rm -rf !(1.1.0.0)
+rm -rf .*
+
+
+-find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
+
+
+
+mkdir uat && cd uat && mkdir 1.1.0.0 && cd ..
+cp -r `ls -A | grep -v "uat"` ./uat/1.1.0.0
+rm -rf !(uat)
+
+
+mv -t f3/ !(f[13]) # or !(f1|f3)
+mv -t f3/ !(f1|f3)
+mv -t uat/1.1.0.0 !(uat)
+mv * uat/1.1.0.0 !(uat)
+
+
+
+find . ! -name file10.txt -delete
+find . ! -* uat -delete
