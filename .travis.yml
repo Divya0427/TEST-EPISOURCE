@@ -28,7 +28,7 @@ stages:
 jobs:
   include:
   - stage : develop
-    if: branch = "develop" 
+    if: branch = "develop"
     env:
      - STAGE=develop
     deploy:
@@ -36,7 +36,7 @@ jobs:
       script: bash uat_scripts.sh $STAGE
       access_key_id: $AWS_ACCESS_KEY_ID
       secret_access_key: $AWS_SECRET_ACCESS_KEY
-      bucket: $UAT_S3
+      bucket: $new_uat_s3
       skip_cleanup: true
       on:
        branch: develop
