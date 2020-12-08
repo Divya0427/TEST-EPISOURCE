@@ -23,13 +23,6 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: $S3_BUCKET_UAT
-    skip_cleanup: true
-    on:
-      branch: develop
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: $S3_BUCKET
     skip_cleanup: true
     on:
