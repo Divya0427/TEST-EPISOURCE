@@ -17,7 +17,7 @@ script:
 - npm run test --coverage
 - npm run build
 before_deploy:
-- rm -rf node_modules
+- rm -rf node_modules manifest.xml manifest_epi.xml
 - bash before_deploy_scripts.sh
 deploy:
   - provider: s3
@@ -30,7 +30,7 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: $S3_BUCKET_PROD
+    bucket: $S3_BUCKET
     skip_cleanup: true
     on:
       branch: troubleshoot
