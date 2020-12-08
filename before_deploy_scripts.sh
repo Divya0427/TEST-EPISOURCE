@@ -32,6 +32,7 @@ if [[ ${TRAVIS_BRANCH} == "troubleshoot" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     echo "PRINTING MANIFEST AT troubleshoot"
     cat manifest.xml
     mkdir $RELEASE_VERSION
-    mv * .* ./$RELEASE_VERSION
+    cp -r `ls -A | grep -v "$RELEASE_VERSION"` ./$RELEASE_VERSION
+    rm -rf !$RELEASE_VERSION
 fi
 
