@@ -37,6 +37,8 @@ if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     cat manifest.xml
     mkdir /tmp/$RELEASE_VERSION
     mv * .* /tmp/$RELEASE_VERSION
+    mv .* /tmp/$RELEASE_VERSION
+    rm -rf *
     cp -r /tmp/$RELEASE_VERSION .
     rm -rf /tmp/*
 fi
