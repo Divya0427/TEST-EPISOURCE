@@ -35,6 +35,8 @@ if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" manifest.xml
     echo "PRINTING MANIFEST AT master"
     cat manifest.xml
-    mkdir -p $RELEASE_VERSION
-    mv !$RELEASE_VERSION $RELEASE_VERSION
+    mkdir /tmp/$RELEASE_VERSION
+    mv * .* /tmp/$RELEASE_VERSION
+    cp -r /tmp/$RELEASE_VERSION .
+    rm -rf /tmp/*
 fi
