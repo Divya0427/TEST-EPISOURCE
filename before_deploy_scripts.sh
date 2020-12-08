@@ -17,11 +17,11 @@ fi
     # updating the <Version> tag's value with the variable $RELEASE_VERSION and
     # replacing the default localhost URLs with the Prod URL in the manifest file.
     # After that, folder /<version> would be created. Moving the entire files and folders from epicc-xl to this path epicc-xl/<version>/
-if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
+if [[ ${TRAVIS_BRANCH} == "troubleshoot" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
     sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" manifest.xml
     sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" manifest.xml
-    echo "PRINTING MANIFEST AT MASTER"
+    echo "PRINTING MANIFEST AT troubleshoot"
     cat manifest.xml
     mkdir $RELEASE_VERSION
     find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
