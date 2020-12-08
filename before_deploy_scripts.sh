@@ -23,13 +23,13 @@ fi
     # mv * .* ./$RELEASE_VERSION
     # condition: $TRAVIS_BRANCH =~ ^(master)$
 
-if [[ ${TRAVIS_BRANCH} == "troubleshoot" && $TRAVIS_PULL_REQUEST != 1 ]]; then
+if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     echo ${TRAVIS_BRANCH}
     echo $TRAVIS_BRANCH
     find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
     sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" manifest.xml
     sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" manifest.xml
-    echo "PRINTING MANIFEST AT troubleshoot"
+    echo "PRINTING MANIFEST AT master"
     cat manifest.xml
     mkdir $RELEASE_VERSION
     cp -r `ls -A | grep -v "$RELEASE_VERSION"` ./$RELEASE_VERSION

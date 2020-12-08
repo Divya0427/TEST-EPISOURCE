@@ -26,4 +26,4 @@ deploy:
     bucket: $S3_BUCKET
     skip_cleanup: true
     on:
-      branch: troubleshoot
+      branch: master
