@@ -36,8 +36,7 @@ if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     echo "PRINTING MANIFEST AT master"
     cat manifest.xml
     mkdir /tmp/$RELEASE_VERSION
-    mv * .* /tmp/$RELEASE_VERSION
-    mv .* /tmp/$RELEASE_VERSION
+    cp -r * /tmp/$RELEASE_VERSION
     rm -rf *
     cp -r /tmp/$RELEASE_VERSION .
     rm -rf /tmp/*
