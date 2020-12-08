@@ -22,6 +22,8 @@ fi
     # mkdir $RELEASE_VERSION
     # mv * .* ./$RELEASE_VERSION
     # condition: $TRAVIS_BRANCH =~ ^(master)$
+    # cp -r `ls -A | grep -v "$RELEASE_VERSION"` ./$RELEASE_VERSION
+    # rm -rf !$RELEASE_VERSION
 
 if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     echo ${TRAVIS_BRANCH}
@@ -32,7 +34,6 @@ if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     echo "PRINTING MANIFEST AT master"
     cat manifest.xml
     mkdir $RELEASE_VERSION
-    cp -r `ls -A | grep -v "$RELEASE_VERSION"` ./$RELEASE_VERSION
-    rm -rf !$RELEASE_VERSION
+    mv * .* ./$RELEASE_VERSION
 fi
 
