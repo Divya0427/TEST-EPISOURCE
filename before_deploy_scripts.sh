@@ -29,9 +29,10 @@ if [[ ${TRAVIS_BRANCH} == "master" && $TRAVIS_PULL_REQUEST != 1 ]]; then
     find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
     sed "/Version/s/>[^<]*</>$RELEASE_VERSION</" manifest.xml
     sed -i.bak "s|$DEFAULT_LOCALHOST|$PROD_URL|g" manifest.xml
-    echo "PRINTING MANIFEST AT MASTER"
+    echo "PRINTING MANIFEST AT master"
     cat manifest.xml
     mkdir $RELEASE_VERSION
-    mv * .* ./$RELEASE_VERSION
+    cp -r `ls -A | grep -v "$RELEASE_VERSION"` ./$RELEASE_VERSION
+    rm -rf !$RELEASE_VERSION
 fi
 
