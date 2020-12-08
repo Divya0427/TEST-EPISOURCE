@@ -65,3 +65,16 @@ mv * uat/1.1.0.0 !(uat)
 
 find . ! -name file10.txt -delete
 find . ! -* uat -delete
+
+
+Sai:
+shopt -s dotglob
+mv /tmp/home/rcook/* /home/rcook/
+You can put
+
+shopt -s dotglob
+in your ~/.bashrc if you want it to be the default.
+
+Another approach to copy the dot files:
+
+mv /tmp/home/rcook/.[!.]* /home/rcook/
